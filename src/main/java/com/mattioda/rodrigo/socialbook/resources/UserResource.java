@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.mattioda.rodrigo.socialbook.domain.Livro;
 import com.mattioda.rodrigo.socialbook.domain.User;
 import com.mattioda.rodrigo.socialbook.dto.UserDto;
 import com.mattioda.rodrigo.socialbook.services.UserService;
@@ -66,5 +66,10 @@ public class UserResource {
 		user= userService.update(user);
 		//Retorna um 204(noContent), que não precisa de retorno
 		return ResponseEntity.noContent().build();	
+	}
+	@RequestMapping(value="/{id}/livros",method=RequestMethod.GET)
+	public ResponseEntity <List<Livro>> findLivros(@PathVariable String id){
+		User user = userService.findById(id);
+		return ResponseEntity.ok().body(user.getLivrosUsuario());	
 	}
 }

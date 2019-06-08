@@ -1,9 +1,12 @@
 package com.mattioda.rodrigo.socialbook.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="user")
@@ -23,6 +26,11 @@ public class User implements Serializable{
 	private String cidade;
 	private String estado;
 	private String tipoUsuario;
+	
+	//Para evitar trafego desnecessário na hora de busca de usuário usar o atributo lazy=true
+	//DBRef serve para referenciar uma outra coleção, no caso a de livros
+	@DBRef(lazy=true)
+	private List<Livro> livrosUsuario = new ArrayList<Livro>();
 	
 	public User() {
 	}
@@ -148,6 +156,15 @@ public class User implements Serializable{
 
 	public void setTipoUsuario(String tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
+	}
+	
+
+	public List<Livro> getLivrosUsuario() {
+		return livrosUsuario;
+	}
+
+	public void setLivrosUsuario(List<Livro> livrosUsuario) {
+		this.livrosUsuario = livrosUsuario;
 	}
 
 	@Override

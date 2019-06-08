@@ -3,10 +3,15 @@ package com.mattioda.rodrigo.socialbook.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection="user")
 public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private Long id;
+	@Id
+	private String id;
 	private String nome;
 	private String sobrenome;
 	private String email;
@@ -22,7 +27,7 @@ public class User implements Serializable{
 	public User() {
 	}
 	
-	public User(Long id, String nome, String sobrenome, String email, Date dataNascimento, String senha, String sexo,
+	public User(String id, String nome, String sobrenome, String email, Date dataNascimento, String senha, String sexo,
 			Integer telefone, String interesses, String cidade, String estado, String tipoUsuario) {
 		super();
 		this.id = id;
@@ -38,14 +43,22 @@ public class User implements Serializable{
 		this.estado = estado;
 		this.tipoUsuario = tipoUsuario;
 	}
-	
-	
-	
-	public Long getId() {
+
+
+	public User(String id, String nome, String sobrenome, String email, String interesses) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.sobrenome = sobrenome;
+		this.email = email;
+		this.interesses = interesses;
+	}
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

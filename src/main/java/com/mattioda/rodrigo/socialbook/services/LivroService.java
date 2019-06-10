@@ -16,6 +16,10 @@ public class LivroService {
 	@Autowired
 	public LivroRepository livroRepository;
 
+	public List<Livro> findAll(){
+		return livroRepository.findAll();
+	}
+	
 	public Livro findById(String id){
 		Optional<Livro> livro = livroRepository.findById(id);
 		return livro.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));

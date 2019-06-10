@@ -21,6 +21,12 @@ public class LivroResource {
 	@Autowired
 	private LivroService livroService;
 	
+	@GetMapping
+	public ResponseEntity <List<Livro>> findAll(){
+		List<Livro>lista=livroService.findAll();
+		return ResponseEntity.ok(lista);	
+	}
+	
 	@GetMapping(value="/{id}")
 	public ResponseEntity <Livro> findById(@PathVariable String id){
 		Livro livro = livroService.findById(id);

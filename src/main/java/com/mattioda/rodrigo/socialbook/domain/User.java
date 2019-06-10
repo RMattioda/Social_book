@@ -32,6 +32,9 @@ public class User implements Serializable{
 	@DBRef(lazy=true)
 	private List<Livro> livrosUsuario = new ArrayList<Livro>();
 	
+	@DBRef(lazy=true)
+	private List<Autor> autoresUsuario = new ArrayList<Autor>();
+	
 	public User() {
 	}
 	
@@ -165,6 +168,15 @@ public class User implements Serializable{
 
 	public void setLivrosUsuario(List<Livro> livrosUsuario) {
 		this.livrosUsuario = livrosUsuario;
+	}
+	
+
+	public List<Autor> getAutoresUsuario() {
+		return autoresUsuario;
+	}
+
+	public void setAutoresUsuario(List<Autor> autoresUsuario) {
+		this.autoresUsuario = autoresUsuario;
 	}
 
 	@Override

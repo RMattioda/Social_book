@@ -1,12 +1,18 @@
 package com.mattioda.rodrigo.socialbook.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import org.springframework.data.mongodb.core.mapping.DBRef;
+
+import com.mattioda.rodrigo.socialbook.dto.ComentariosDto;
 
 public class Autor implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
+	private String id;
 	private String nomeAutor;
 	private String sobrenomeAutor;
 	private String apelidoAutor;
@@ -14,13 +20,19 @@ public class Autor implements Serializable{
 	private Date dataFalecimento;
 	private Integer idadeAutor;
 	private String nacionalidade;
-	private String categoriasEscritor;
+	
+	private List<String> categoriasEscritor;
+	
+	private List<ComentariosDto> comentarios = new ArrayList<>();
+	
+	@DBRef(lazy=true)
+	private List<Livro> listaLivroAutor= new ArrayList<>();
 	
 	public Autor() {
 	}
 	
-	public Autor(Long id, String nomeAutor, String sobrenomeAutor, String apelidoAutor, Date dataNascimento,
-			Date dataFalecimento, Integer idadeAutor, String nacionalidade, String categoriasEscritor) {
+	public Autor(String id, String nomeAutor, String sobrenomeAutor, String apelidoAutor, Date dataNascimento,
+			Date dataFalecimento, Integer idadeAutor, String nacionalidade, List<String> categoriasEscritor) {
 		super();
 		this.id = id;
 		this.nomeAutor = nomeAutor;
@@ -33,11 +45,11 @@ public class Autor implements Serializable{
 		this.categoriasEscritor = categoriasEscritor;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -97,12 +109,30 @@ public class Autor implements Serializable{
 		this.nacionalidade = nacionalidade;
 	}
 
-	public String getCategoriasEscritor() {
+	public List<String> getCategoriasEscritor() {
 		return categoriasEscritor;
 	}
 
-	public void setCategoriasEscritor(String categoriasEscritor) {
+	public void setCategoriasEscritor(List<String> categoriasEscritor) {
 		this.categoriasEscritor = categoriasEscritor;
+	}
+	
+
+	public List<Livro> getListaLivroAutor() {
+		return listaLivroAutor;
+	}
+
+	public void setListaLivroAutor(List<Livro> listaLivroAutor) {
+		this.listaLivroAutor = listaLivroAutor;
+	}
+	
+
+	public List<ComentariosDto> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<ComentariosDto> comentarios) {
+		this.comentarios = comentarios;
 	}
 
 	@Override

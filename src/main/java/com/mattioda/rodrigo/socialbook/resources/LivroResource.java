@@ -1,5 +1,6 @@
 package com.mattioda.rodrigo.socialbook.resources;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,16 @@ public class LivroResource {
 		return ResponseEntity.ok().body(livro);	
 	}
 
+	@GetMapping(value="/fullSearch")
+	public ResponseEntity <List<Livro>> fullSearch(
+			@RequestParam(value="text", defaultValue="") String text,
+			@RequestParam(value="minDate", defaultValue="") String minDate,
+			@RequestParam(value="maxDate", defaultValue="") String maxDate){
+		text=URL.decodeParametros(text);	
+		Date min=URL.convertDate(minDate, new Date(0));
+		Date max=URL.convertDate(maxDate, new Date());
+		List<Livro> livro = livroService.findFullSearch(text, min, max);
+		return ResponseEntity.ok().body(livro);	
+	}
 	
 }

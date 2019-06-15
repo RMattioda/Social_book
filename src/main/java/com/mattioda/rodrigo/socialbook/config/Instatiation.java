@@ -41,7 +41,7 @@ public class Instatiation implements CommandLineRunner {
 		List<String> listaDeCategorias= new ArrayList<>();
 		listaDeCategorias.add("Terror");
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 		
 		User rodrigo= new User(null, "Rodrigo", "Mattioda", "rodrigomattioda@gmail.com", "Terror");
@@ -50,7 +50,7 @@ public class Instatiation implements CommandLineRunner {
 		userRepository.saveAll(Arrays.asList(rodrigo, julia));
 		
 		Livro livro1= new Livro(null, "Joyland", "Stephen King", "Terror", "alamo", "Bem louco",sdf.parse("08/06/2019"), new AutorPublicacaoDto(rodrigo));
-		Livro livro2= new Livro(null, "Juliette", "Desconhecido", "Romance", "cine vídeo", "nem sei",sdf.parse("08/06/2019"), new AutorPublicacaoDto(julia));
+		Livro livro2= new Livro(null, "Juliette", "Desconhecido", "Romance", "cine vídeo", "nem sei",sdf.parse("07/05/2018"), new AutorPublicacaoDto(julia));
 	
 		Autor autor1= new Autor(null, "Stephen", "King", "Stephen King", sdf.parse("20/03/1959"), null, 60, "Eua", listaDeCategorias);
 		

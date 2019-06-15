@@ -1,5 +1,6 @@
 package com.mattioda.rodrigo.socialbook.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,5 +29,10 @@ public class LivroService {
 
 	public List<Livro> findByNomeLivro(String nomeLivro){
 		return livroRepository.findByNomeLivroContainingIgnoreCase(nomeLivro);
+	}
+	
+	public List<Livro> findFullSearch(String text, Date minDate, Date maxDate){
+		
+		return livroRepository.findFullSearch(text, minDate, maxDate);
 	}
 }

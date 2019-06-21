@@ -6,12 +6,14 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mattioda.rodrigo.socialbook.domain.Livro;
@@ -27,14 +29,17 @@ public class UserResource {
 	private UserService userService;
 	
 	@GetMapping
-	public ResponseEntity <List<UserDto>> findAll(){
+	public ModelAndView findAll(Model model){
+		ModelAndView view= new ModelAndView("/index");
 		List<User>lista=userService.findAll();
 		//Passamos para dentro da nova listaDto
 		//Usa o steam para pois é compatível com expressões lambda
 		//O map vai pegar cada um dos elementos do objeto que roda na query e passa para o objeto DTO que por fim
 		//o manda para o objeto Stram que volta para o formato de lista
 		List<UserDto> listDto=lista.stream().map(x -> new UserDto(x)).collect(Collectors.toList());
-		return ResponseEntity.ok(listDto);	
+
+		model.addAttribute("users", listDto);
+		return view;	
 	}
 	@GetMapping(value="/{id}")
 	public ResponseEntity <UserDto> findById(@PathVariable String id){

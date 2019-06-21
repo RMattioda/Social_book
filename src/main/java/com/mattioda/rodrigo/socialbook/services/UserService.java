@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.mattioda.rodrigo.socialbook.domain.User;
@@ -16,6 +17,9 @@ public class UserService {
 
 	@Autowired
 	public UserRepository userRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder pe;
 	
 	public List<User> findAll(){
 		return userRepository.findAll();
@@ -60,6 +64,8 @@ public class UserService {
 	}
 
 	public User fromDto(UserDto userDto) {
-		return new User(userDto.getId(),userDto.getNome(),userDto.getSobrenome(), userDto.getEmail(), userDto.getInteresses());
+		return new User(userDto.getId(),userDto.getNome(),
+				userDto.getSobrenome(), userDto.getEmail(),
+				userDto.getInteresses(), pe.encode(userDto.getSenha()));
 	}
 }

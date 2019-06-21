@@ -1,7 +1,12 @@
 package com.mattioda.rodrigo.socialbook.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mattioda.rodrigo.socialbook.domain.User;
 
 public class UserDto implements Serializable{
@@ -10,8 +15,15 @@ public class UserDto implements Serializable{
 	private String id;
 	private String nome;
 	private String sobrenome;
+	
+	@Email
 	private String email;	
-	private String interesses;
+	
+	@JsonIgnore
+	@NotEmpty
+	private String senha;
+	
+	private List<String> interesses;
 	
 	public UserDto() {
 	}
@@ -21,6 +33,7 @@ public class UserDto implements Serializable{
 		sobrenome = user.getSobrenome();
 		email = user.getEmail();
 		interesses = user.getInteresses();
+		senha= user.getSenha();
 	}
 	
 	public String getId() {
@@ -47,10 +60,16 @@ public class UserDto implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getInteresses() {
+	public List<String> getInteresses() {
 		return interesses;
 	}
-	public void setInteresses(String interesses) {
+	public void setInteresses(List<String> interesses) {
 		this.interesses = interesses;
+	}
+	public String getSenha() {
+		return senha;
+	}
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 }

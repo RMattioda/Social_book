@@ -3,11 +3,17 @@ package com.mattioda.rodrigo.socialbook.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mattioda.rodrigo.socialbook.domain.enums.TipoUser;
 
 @Document(collection="user")
 public class User implements Serializable{
@@ -19,13 +25,21 @@ public class User implements Serializable{
 	private String sobrenome;
 	private String email;
 	private Date dataNascimento;
+	
+	@JsonIgnore
 	private String senha;
 	private String sexo;
 	private Integer telefone;
-	private String interesses;
+	
+	
+	private List<String> interesses;
+	
+	
 	private String cidade;
 	private String estado;
-	private String tipoUsuario;
+	
+	
+	private Set<Integer> tipoUsuario = new HashSet<>();
 	
 	//Para evitar trafego desnecessário na hora de busca de usuário usar o atributo lazy=true
 	//DBRef serve para referenciar uma outra coleção, no caso a de livros
@@ -36,10 +50,11 @@ public class User implements Serializable{
 	private List<Autor> autoresUsuario = new ArrayList<Autor>();
 	
 	public User() {
+		addTipoUsuario(TipoUser.USER);
 	}
 	
 	public User(String id, String nome, String sobrenome, String email, Date dataNascimento, String senha, String sexo,
-			Integer telefone, String interesses, String cidade, String estado, String tipoUsuario) {
+			Integer telefone, List<String> interesses, String cidade, String estado, TipoUser tipoUsuario) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -52,17 +67,18 @@ public class User implements Serializable{
 		this.interesses = interesses;
 		this.cidade = cidade;
 		this.estado = estado;
-		this.tipoUsuario = tipoUsuario;
+		addTipoUsuario(TipoUser.USER);
 	}
 
 
-	public User(String id, String nome, String sobrenome, String email, String interesses) {
+	public User(String id, String nome, String sobrenome, String email, List<String> interesses,  String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.email = email;
 		this.interesses = interesses;
+		this.senha=senha;
 	}
 
 	public String getId() {
@@ -129,11 +145,11 @@ public class User implements Serializable{
 		this.telefone = telefone;
 	}
 
-	public String getInteresses() {
+	public List<String> getInteresses() {
 		return interesses;
 	}
 
-	public void setInteresses(String interesses) {
+	public void setInteresses(List<String> interesses) {
 		this.interesses = interesses;
 	}
 
@@ -153,12 +169,12 @@ public class User implements Serializable{
 		this.estado = estado;
 	}
 
-	public String getTipoUsuario() {
-		return tipoUsuario;
+	public Set<TipoUser> getTipoUsuario() {
+		return tipoUsuario.stream().map(x->TipoUser.toEnum(x)).collect(Collectors.toSet());
 	}
 
-	public void setTipoUsuario(String tipoUsuario) {
-		this.tipoUsuario = tipoUsuario;
+	public void addTipoUsuario(TipoUser tipoUser) {
+		tipoUsuario.add(tipoUser.getCod());
 	}
 	
 

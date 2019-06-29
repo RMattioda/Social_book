@@ -35,4 +35,28 @@ public class LivroService {
 		
 		return livroRepository.findFullSearch(text, minDate, maxDate);
 	}
+	
+	public Livro insertLivro(Livro livro) {
+		return livroRepository.insert(livro);
+	}
+
+	public Livro update(Livro livro) {
+		Livro newLivro =findById(livro.getId());
+		updateData(newLivro, livro);
+		return livroRepository.save(newLivro);
+	}
+	private void updateData(Livro newLivro, Livro livro) {
+		newLivro.setNomeAutor(livro.getNomeAutor());
+		newLivro.setNomeLivro(livro.getNomeLivro());
+		newLivro.setNomeEditora(livro.getNomeEditora());
+		newLivro.setNumeroDePaginas(livro.getNumeroDePaginas());
+		newLivro.setCategorias(livro.getCategorias());
+		newLivro.setDescricaoLivro(livro.getDescricaoLivro());
+		newLivro.setAutorDaPublicacao(livro.getAutorDaPublicacao());
+	}
+	
+	public void delete(String id) {
+		findById(id);
+		livroRepository.deleteById(id);
+	}
 }

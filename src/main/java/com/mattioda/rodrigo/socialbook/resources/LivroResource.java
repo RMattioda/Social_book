@@ -1,15 +1,20 @@
 package com.mattioda.rodrigo.socialbook.resources;
 
+import java.net.URI;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mattioda.rodrigo.socialbook.domain.Livro;
 import com.mattioda.rodrigo.socialbook.resources.util.URL;
@@ -57,4 +62,27 @@ public class LivroResource {
 		return ResponseEntity.ok().body(livro);	
 	}
 	
+	//Por enquanto, somente administradores podem adicionar livros
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	@RequestMapping(method=RequestMethod.POST)
+	public ResponseEntity<Void> insert(@RequestBody Livro livro){
+		livro= livroService.insertLivro(livro);
+		URI uri= ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(livro.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+	}
+	
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	@RequestMapping(value="/{id}",method=RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Livro livro, @PathVariable String id){
+		livro.setId(id);
+		livro= livroService.update(livro);
+		return ResponseEntity.noContent().build();	
+	}
+	
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	@RequestMapping(value="/{id}",method=RequestMethod.DELETE)
+	public ResponseEntity <Void> delete(@PathVariable String id){
+		livroService.delete(id);
+		return ResponseEntity.noContent().build();	
+	}
 }

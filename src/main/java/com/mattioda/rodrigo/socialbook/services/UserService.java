@@ -46,11 +46,7 @@ public class UserService {
 		updateData(newUser, user);
 		return userRepository.save(newUser);
 	}
-	private User updateSenha(User user) {
-		User newUser=findById(user.getId());
-		updateDataSenha(newUser, user);
-		return userRepository.save(newUser);
-	}
+
 	private void updateData(User newUser, User user) {
 		newUser.setNome(user.getNome());
 		newUser.setSobrenome(user.getSobrenome());
@@ -59,9 +55,7 @@ public class UserService {
 		newUser.setCidade(user.getCidade());
 		newUser.setEstado(user.getEstado());
 	}
-	private void updateDataSenha(User newUser, User user) {
-		newUser.setSenha(user.getSenha());
-	}
+
 
 	public User fromDto(UserDto userDto) {
 		return new User(userDto.getId(),userDto.getNome(),

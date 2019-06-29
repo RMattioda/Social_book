@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.mattioda.rodrigo.socialbook.services.exception.AuthorizationException;
 import com.mattioda.rodrigo.socialbook.services.exception.ObjectNotFoundException;
 
 //Informa para o spring que essa é a classe responsável por tratar possiveis erros na requisição
@@ -22,6 +23,16 @@ public class ResourceExceptionHandler{
 		//Formata os atributos gerados pelo erro usando a classe StandardError
 		StandardError erro= new StandardError(System.currentTimeMillis(),status.value(),
 				"Não encontrado", e.getMessage(), request.getRequestURI());
+		
+		return ResponseEntity.status(status).body(erro);
+	}
+	
+	@ExceptionHandler(AuthorizationException.class)
+	public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request){
+		
+		HttpStatus status= HttpStatus.FORBIDDEN;
+		StandardError erro= new StandardError(System.currentTimeMillis(),status.value(),
+				"Acesso negado", e.getMessage(), request.getRequestURI());
 		
 		return ResponseEntity.status(status).body(erro);
 	}

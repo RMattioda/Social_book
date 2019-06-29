@@ -8,8 +8,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.mattioda.rodrigo.socialbook.domain.User;
+import com.mattioda.rodrigo.socialbook.domain.enums.TipoUser;
 import com.mattioda.rodrigo.socialbook.dto.UserDto;
 import com.mattioda.rodrigo.socialbook.repository.UserRepository;
+import com.mattioda.rodrigo.socialbook.security.UserSecurity;
+import com.mattioda.rodrigo.socialbook.services.exception.AuthorizationException;
 import com.mattioda.rodrigo.socialbook.services.exception.ObjectNotFoundException;
 
 @Service
@@ -26,6 +29,10 @@ public class UserService {
 	}
 	
 	public User findById(String id){
+		UserSecurity userSS= UserLogadoService.authenticated();
+		if(userSS==null || !userSS.hasRole(TipoUser.ADMIN) && !id.equals(userSS.getId())) {
+			throw new AuthorizationException("Acesso negado!");
+		}
 		//O Optional faz com que buscas inexistentes estourem um erro, se houve sucesso ele returna o id do usuário
 		Optional<User> user = userRepository.findById(id);
 		//ObjectNotFoundException é uma classe de excessão criada e lançada caso não seja encontrado o id

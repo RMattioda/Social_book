@@ -32,7 +32,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	private JWTUtil jwtUtil;
 	
 	private final static String[] PUBLIC_MATCHERS={
-			"/index/**",
 			"/livros/**"
 	};
 	

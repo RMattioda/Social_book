@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.mattioda.rodrigo.socialbook.domain.Livro;
 import com.mattioda.rodrigo.socialbook.domain.User;
 import com.mattioda.rodrigo.socialbook.dto.UserDto;
 import com.mattioda.rodrigo.socialbook.services.UserService;
@@ -80,11 +79,5 @@ public class UserResource {
 		return ResponseEntity.noContent().build();	
 	}
 	
-	
-	
-	@RequestMapping(value="/{id}/livros",method=RequestMethod.GET)
-	public ResponseEntity <List<Livro>> findLivros(@PathVariable String id){
-		User user = userService.findById(id);
-		return ResponseEntity.ok().body(user.getLivrosUsuario());	
-	}
+
 }

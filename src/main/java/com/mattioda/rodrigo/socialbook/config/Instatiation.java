@@ -86,7 +86,7 @@ public class Instatiation implements CommandLineRunner {
 		rodrigo.getLivrosUsuario().addAll(Arrays.asList(livro1, livro2));
 		julia.getLivrosUsuario().addAll(Arrays.asList(livro2));
 		
-		rodrigo.getAutoresUsuario().addAll(Arrays.asList(autor1));
+		//rodrigo.getAutoresUsuario().addAll(Arrays.asList(autor1));
 		
 		userRepository.save(rodrigo);
 		userRepository.save(julia);

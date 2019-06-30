@@ -27,16 +27,15 @@ public class Livro implements Serializable {
 	private Date dataPublicacao;
 	private Date dataCriacao;
 	private AutorPublicacaoDto autorDaPublicacao;
-	
-	
+
 	private List<ComentariosDto> comentarios = new ArrayList<>();
 
 	public Livro() {
 	}
 
 	public Livro(String id, String nomeLivro, String nomeAutor, String categorias, String nomeEditora,
-			String descricaoLivro, Integer numeroDePaginas, Integer avalizacaoLivro,
-			Date dataPublicacao, Date dataCriacao, AutorPublicacaoDto autorDaPublicacao) {
+			String descricaoLivro, Integer numeroDePaginas, Integer avalizacaoLivro, Date dataPublicacao,
+			Date dataCriacao, AutorPublicacaoDto autorDaPublicacao) {
 		super();
 		this.id = id;
 		this.nomeLivro = nomeLivro;
@@ -47,20 +46,22 @@ public class Livro implements Serializable {
 		this.numeroDePaginas = numeroDePaginas;
 		this.avalizacaoLivro = avalizacaoLivro;
 		this.dataPublicacao = dataPublicacao;
-		this.dataCriacao=dataCriacao;
+		this.dataCriacao = dataCriacao;
 		this.autorDaPublicacao=autorDaPublicacao;
 	}
 
-	public Livro(String id, String nomeLivro, String nomeAutor, String categorias, String nomeEditora, String descricaoLivro, Date dataCriacao, AutorPublicacaoDto autorDaPublicacao) {
+	public Livro(String id, String nomeLivro, String nomeAutor, String categorias, String nomeEditora,
+			String descricaoLivro, Date dataCriacao, AutorPublicacaoDto autorDaPublicacao) {
 		this.id = id;
 		this.nomeLivro = nomeLivro;
 		this.nomeAutor = nomeAutor;
 		this.categorias = categorias;
 		this.nomeEditora = nomeEditora;
 		this.descricaoLivro = descricaoLivro;
-		this.dataCriacao=dataCriacao;
+		this.dataCriacao = dataCriacao;
 		this.autorDaPublicacao=autorDaPublicacao;
 	}
+
 	public String getId() {
 		return id;
 	}
@@ -133,27 +134,20 @@ public class Livro implements Serializable {
 		this.dataPublicacao = dataPublicacao;
 	}
 
-	public AutorPublicacaoDto getAutor() {
-		return autorDaPublicacao;
-	}
-
-	public void setAutor(AutorPublicacaoDto autor) {
-		this.autorDaPublicacao = autor;
-	}
-	public Date getDataCriacao() {
-		return dataCriacao;
-	}
-
-	public void setDataCriacao(Date dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
-
 	public AutorPublicacaoDto getAutorDaPublicacao() {
 		return autorDaPublicacao;
 	}
 
 	public void setAutorDaPublicacao(AutorPublicacaoDto autorDaPublicacao) {
 		this.autorDaPublicacao = autorDaPublicacao;
+	}
+
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
 	}
 
 	public List<ComentariosDto> getComentarios() {

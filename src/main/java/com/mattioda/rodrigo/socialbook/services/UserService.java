@@ -69,4 +69,15 @@ public class UserService {
 				userDto.getSobrenome(), userDto.getEmail(),
 				userDto.getInteresses(), pe.encode(userDto.getSenha()));
 	}
+	
+//	public Page<User> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+//		UserSecurity userSS= UserLogadoService.authenticated();
+//		if(userSS==null) {
+//			throw new AuthorizationException("Acesso negado");
+//		}		
+//		PageRequest pageRequest= PageRequest.of(page, linesPerPage,Direction.valueOf(direction), orderBy);
+//		User user= this.findById(userSS.getId());
+//		List<Livro> livroUsuario= user.getLivrosUsuario();
+//		return userRepository.findByLivrosUsuario(livroUsuario ,pageRequest);
+//	}
 }

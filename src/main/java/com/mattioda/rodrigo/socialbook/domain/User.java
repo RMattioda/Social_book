@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -43,11 +42,11 @@ public class User implements Serializable{
 	
 	//Para evitar trafego desnecessário na hora de busca de usuário usar o atributo lazy=true
 	//DBRef serve para referenciar uma outra coleção, no caso a de livros
-	@DBRef(lazy=true)
+	//@DBRef(lazy=true)
 	private List<Livro> livrosUsuario = new ArrayList<Livro>();
 	
-	@DBRef(lazy=true)
-	private List<Autor> autoresUsuario = new ArrayList<Autor>();
+//	@DBRef(lazy=true)
+//	private List<Autor> autoresUsuario = new ArrayList<Autor>();
 	
 	public User() {
 		addTipoUsuario(TipoUser.USER);
@@ -187,13 +186,13 @@ public class User implements Serializable{
 	}
 	
 
-	public List<Autor> getAutoresUsuario() {
-		return autoresUsuario;
-	}
-
-	public void setAutoresUsuario(List<Autor> autoresUsuario) {
-		this.autoresUsuario = autoresUsuario;
-	}
+//	public List<Autor> getAutoresUsuario() {
+//		return autoresUsuario;
+//	}
+//
+//	public void setAutoresUsuario(List<Autor> autoresUsuario) {
+//		this.autoresUsuario = autoresUsuario;
+//	}
 
 	@Override
 	public int hashCode() {

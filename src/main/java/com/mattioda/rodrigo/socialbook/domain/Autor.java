@@ -25,7 +25,7 @@ public class Autor implements Serializable{
 	
 	private List<ComentariosDto> comentarios = new ArrayList<>();
 	
-	@DBRef(lazy=true)
+	@DBRef(lazy=false)	
 	private List<Livro> listaLivroAutor= new ArrayList<>();
 	
 	public Autor() {

@@ -1,13 +1,15 @@
 package com.mattioda.rodrigo.socialbook.dto;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mattioda.rodrigo.socialbook.domain.User;
+import com.mattioda.rodrigo.socialbook.domain.enums.TipoUser;
 
 public class UserDto implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -19,7 +21,7 @@ public class UserDto implements Serializable{
 	@Email
 	private String email;	
 	
-	@JsonIgnore
+	private Set<Integer> tipoUsuario = new HashSet<>();
 	@NotEmpty
 	private String senha;
 	
@@ -34,6 +36,7 @@ public class UserDto implements Serializable{
 		email = user.getEmail();
 		interesses = user.getInteresses();
 		senha= user.getSenha();
+		addTipoUsuario(TipoUser.USER);
 	}
 	
 	public String getId() {
@@ -71,5 +74,8 @@ public class UserDto implements Serializable{
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	public void addTipoUsuario(TipoUser tipoUser) {
+		tipoUsuario.add(tipoUser.getCod());
 	}
 }

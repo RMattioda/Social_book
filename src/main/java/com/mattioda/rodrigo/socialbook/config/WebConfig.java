@@ -15,6 +15,9 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
+import com.mattioda.rodrigo.socialbook.services.email.EmailService;
+import com.mattioda.rodrigo.socialbook.services.email.SmtpEmailService;
+
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.mattioda.rodrigo.socialbook")
@@ -40,6 +43,10 @@ public class WebConfig implements ApplicationContextAware, WebMvcConfigurer  {
 	    engine.setEnableSpringELCompiler(true);
 	    engine.setTemplateResolver(templateResolver());
 	    return engine;
+	  }
+	  @Bean
+	  public EmailService emailService() {
+		  return new SmtpEmailService();
 	  }
 
 	  private ITemplateResolver templateResolver() {

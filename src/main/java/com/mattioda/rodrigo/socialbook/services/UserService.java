@@ -24,6 +24,8 @@ public class UserService {
 	@Autowired
 	private BCryptPasswordEncoder pe;
 	
+	
+	
 	public List<User> findAll(){
 		return userRepository.findAll();
 	}

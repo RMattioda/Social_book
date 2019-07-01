@@ -32,7 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	private JWTUtil jwtUtil;
 	
 	private final static String[] PUBLIC_MATCHERS={
-			"/livros/**"
+			"/livros/**",
+			"/register/**"
 	};
 	
 	private final static String[] PUBLIC_STATIC= {
@@ -45,7 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             "/js/**"
 	};
 	private final static String[] PUBLIC_MATCHERS_POST={
-			"/users/**"
+			"/users/**",
+			"/register/**"
 	};
 	
 	

@@ -40,7 +40,7 @@ public class HomePageResource {
 	public ResponseEntity<Void> insert(@RequestBody UserDto userDto){
 		User user = homePageService.fromDto(userDto);
 		user= homePageService.insert(user);
-		URI uri= ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
+		URI uri= ServletUriComponentsBuilder.fromCurrentRequest().path("/users/{id}").buildAndExpand(user.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	@RequestMapping(value="/register", method=RequestMethod.GET)

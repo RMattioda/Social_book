@@ -40,7 +40,7 @@ public class HomePageService {
 	}
 	
 	public User insert(User user) {
-		emailService.sendOrderConfirmationEmail(user);
+		emailService.sendOrderHtmlConfirmationEmail(user);
 		return userRepository.insert(user);
 	}
 	

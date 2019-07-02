@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:remove="all">Order Confirmation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<style type="text/css">
+h1 {
+	color: black;
+	text-align: center;
+}
+
+#corpo {
+	background-image:
+		url('https://blog.poemese.com/wp-content/uploads/2016/04/frases-para-quem-ama-livros.png');
+	background-size: auto;
+}
+
+p {
+	color: black;
+}
+
+#boasVindas {
+	background-color: white;
+	display: block;
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 40%;
+	border: 3px;
+	border-color: black;
+	border-style: solid;
+}
+</style>
+</head>
+<body id="corpo">
+	<br />
+	<br />
+	<div id="boasVindas">
+		<h1>
+			Seja bem vindo, <span th:text="${user.nome}"></span>!
+		</h1>
+		<p>&nbsp;&nbsp;&nbsp;&nbsp;A equipe do site Social Book lhe da
+			boas vindas. Que desfrute dos serviços oferecidos com muita alegria!</p>
+	</div>
+	<br />
+	<br />
+	<br />
+
+</body>
+</html>

@@ -23,5 +23,11 @@ public class SmtpEmailService extends AbstractEmailService {
 	public void sendHtmlEmail(MimeMessage msg) {
 		jms.send(msg);
 	}
+	
+	@Override
+	public void sendNewPasswordEmail(MimeMessage msg) {
+		jms.send(msg);
+	}
+
 
 }

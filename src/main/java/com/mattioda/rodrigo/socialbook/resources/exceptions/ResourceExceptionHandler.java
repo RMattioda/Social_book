@@ -7,7 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.mattioda.rodrigo.socialbook.services.exception.AuthorizationException;
+import com.mattioda.rodrigo.socialbook.services.exception.FileException;
 import com.mattioda.rodrigo.socialbook.services.exception.ObjectNotFoundException;
 
 //Informa para o spring que essa é a classe responsável por tratar possiveis erros na requisição
@@ -33,6 +36,36 @@ public class ResourceExceptionHandler{
 		HttpStatus status= HttpStatus.FORBIDDEN;
 		StandardError erro= new StandardError(System.currentTimeMillis(),status.value(),
 				"Acesso negado", e.getMessage(), request.getRequestURI());
+		
+		return ResponseEntity.status(status).body(erro);
+	}
+	
+	@ExceptionHandler(FileException.class)
+	public ResponseEntity<StandardError> file(FileException e, HttpServletRequest request){
+		
+		HttpStatus status= HttpStatus.BAD_REQUEST;
+		StandardError erro= new StandardError(System.currentTimeMillis(),status.value(),
+				"Erro ao enviar arquivo", e.getMessage(), request.getRequestURI());
+		
+		return ResponseEntity.status(status).body(erro);
+	}
+	
+	@ExceptionHandler(AmazonServiceException.class)
+	public ResponseEntity<StandardError> amazonService(AmazonServiceException e, HttpServletRequest request){
+		
+		HttpStatus status= HttpStatus.valueOf(e.getErrorCode());
+		StandardError erro= new StandardError(System.currentTimeMillis(),status.value(),
+				"Erro em prover serviço da Amazon", e.getMessage(), request.getRequestURI());
+		
+		return ResponseEntity.status(status).body(erro);
+	}
+	
+	@ExceptionHandler(AmazonS3Exception.class)
+	public ResponseEntity<StandardError> amazonS3(AmazonS3Exception e, HttpServletRequest request){
+		
+		HttpStatus status= HttpStatus.BAD_REQUEST;
+		StandardError erro= new StandardError(System.currentTimeMillis(),status.value(),
+				"Erro ao enviar arquivo", e.getMessage(), request.getRequestURI());
 		
 		return ResponseEntity.status(status).body(erro);
 	}

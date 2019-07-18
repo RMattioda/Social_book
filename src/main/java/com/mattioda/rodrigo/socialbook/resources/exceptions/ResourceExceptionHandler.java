@@ -4,11 +4,15 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
+import com.mattioda.rodrigo.cursomc.resources.exception.StandardError;
+import com.mattioda.rodrigo.cursomc.resources.exception.ValidationError;
 import com.mattioda.rodrigo.socialbook.services.exception.AuthorizationException;
 import com.mattioda.rodrigo.socialbook.services.exception.FileException;
 import com.mattioda.rodrigo.socialbook.services.exception.ObjectNotFoundException;
@@ -38,6 +42,18 @@ public class ResourceExceptionHandler{
 				"Acesso negado", e.getMessage(), request.getRequestURI());
 		
 		return ResponseEntity.status(status).body(erro);
+	}
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<StandardError> validation(MethodArgumentNotValidException e, HttpServletRequest request) {
+		
+		HttpStatus status= HttpStatus.UNPROCESSABLE_ENTITY;
+		ValidationError err = new ValidationError(System.currentTimeMillis(),
+				status.value(), "Erro de validação", e.getMessage() , request.getRequestURI());
+		for(FieldError x : e.getBindingResult().getFieldErrors()) {
+			err.addError(x.getField(), x.getDefaultMessage());
+		}		
+		return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(err);
 	}
 	
 	@ExceptionHandler(FileException.class)

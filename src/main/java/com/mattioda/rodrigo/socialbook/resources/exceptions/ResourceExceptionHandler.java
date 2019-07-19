@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
-import com.mattioda.rodrigo.cursomc.resources.exception.StandardError;
-import com.mattioda.rodrigo.cursomc.resources.exception.ValidationError;
 import com.mattioda.rodrigo.socialbook.services.exception.AuthorizationException;
 import com.mattioda.rodrigo.socialbook.services.exception.FileException;
 import com.mattioda.rodrigo.socialbook.services.exception.ObjectNotFoundException;
